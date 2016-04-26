@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>What You Say Is What You Get</title>
+
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.3.0/annyang.min.js"></script>
+</head>
+
+<body>
+<div id="header">
+	<h1>Some site (id = header)</h1>
+</div>
+
+<div id="content">
+	<div id="first">
+		<p>This is a div we can change. (id = first)</p>
+	</div>
+
+	<div id="second">
+		<p>We can change this one, too. (id = second)</p>
+	</div>
+
+	<p id="text">We can even change the surrounding div (id = content) or this text (id = text)!</p>
+</div>
+<script>
+var element = null;
+
+var setOurElement = function(selector) {
+  selector = selector.toLowerCase();
+  element = document.getElementById(selector);
+
+  if(element == null) {
+	 console.log("Element " + selector + "not found.");
+  } else {
+	 console.log("Selected element " + selector);
+  }
+}
+
+var setAttribute = function(attr, value) {
+
+  attr = attr.toLowerCase();
+  value = value.toLowerCase();
+
+  if(element == null) {
+	 console.log("element is null");
+	 return;
+  }
+
+  // rip
+  if(attr == 'with') {
+	 attr = 'width';
+  }
+
+  console.log("Setting " + element + "'s class " + attr + " to value " + value);
+  element.style.setProperty(attr, value);
+}
+
+var commands = {
+ 'use *selector': setOurElement,
+ 'set :attr *value': setAttribute,
+};
+
+annyang.addCommands(commands);
+
+annyang.start({ continuous: false });
+</script>
+</body>
+</html>
